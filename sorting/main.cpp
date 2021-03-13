@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-enum Strategy { Selection };
+enum Strategy { Selection, Insertion };
 
 void selectionSort(std::vector<int> &xs)
 {
@@ -12,6 +12,13 @@ void selectionSort(std::vector<int> &xs)
       current_min = *current_min > *y ? y : current_min;
     }
     iter_swap(current_min, x);
+  }
+}
+
+void insertionSort(std::vector<int> &xs)
+{
+  for (auto x = xs.begin(); x != xs.end(); ++x) {
+    std::rotate(std::upper_bound(xs.begin(), x, *x), x, x+1);
   }
 }
 
@@ -28,6 +35,10 @@ void sort(std::vector<int> &xs, Strategy strategy)
   switch (strategy) {
   case Selection: {
     selectionSort(xs);
+    break;
+  }
+  case Insertion: {
+    insertionSort(xs);
     break;
   }
   default:
